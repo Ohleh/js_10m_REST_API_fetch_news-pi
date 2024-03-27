@@ -1,0 +1,13 @@
+.user-list {
+  margin: 0;
+  list-style: none;
+  padding: 24px;
+}
+
+.user-list li:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+p {
+  margin: 0;
+}

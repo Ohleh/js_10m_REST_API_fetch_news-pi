@@ -1,4 +1,5 @@
-const buttonRef = document.querySelector(".btn");
+const buttonRef = document.querySelector(".btnFetch");
+const btnFetchPag = document.querySelector(".btnFetchPag");
 const ulrRef = document.querySelector(".user-list");
 
 buttonRef.addEventListener("click", onButtonClick);

@@ -8,6 +8,18 @@ p {
   margin: 0;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  margin: 20px 20px 20px 20px;
+  padding: 5 20;
+  width: 150px;
+}
+
 .user-list {
   margin: 0;
   list-style: none;

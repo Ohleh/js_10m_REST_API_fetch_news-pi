@@ -29,3 +29,7 @@ button {
 .user-list li:not(:last-child) {
   margin-bottom: 16px;
 }
+
+.hide {
+  display: none;
+}

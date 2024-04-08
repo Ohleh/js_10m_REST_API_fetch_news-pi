@@ -30,12 +30,20 @@ const categoryRef = document.querySelector(".category");
 const pageSizeRef = document.querySelector(".pageSize");
 const totalResult = document.querySelector(".totalResults");
 const totalPage = document.querySelector(".totalPages");
-const loadMore = document.querySelector(".loadMore");
+const loadMoreBtn = document.querySelector(".loadMoreBtn");
 const ulRef = document.querySelector(".newsList");
 const KEY = "04817410139a4f28b3432ba663d88446";
 const BASE_URL = "https://newsapi.org/v2";
+let pageCounter = 1;
+
+const hideLoadMoreBtn = (data, pageSize) => {
+  if (pageCounter >= Math.ceil(data?.totalResults / pageSize)) {
+    loadMoreBtn.classList.add("hide");
+  }
+};
 
 const pagesInfo = (data, pageSize) => {
+  ulRef.textContent = "";
   totalResult.textContent = `Total news number: ${data?.totalResults}.`;
   totalPage.textContent = `Total pages: ${Math.ceil(
     data?.totalResults / pageSize
@@ -46,20 +54,24 @@ const onSubmit = (e) => {
   e.preventDefault();
   const category = categoryRef.value;
   const pageSize = pageSizeRef.value;
-
-  const URL = `${BASE_URL}/top-headlines?country=us&category=${category}&pageSize=${pageSize}&apiKey=${KEY}`;
+  const URL = `${BASE_URL}/top-headlines?country=us&category=${category}&pageSize=${pageSize}&page=${pageCounter}&apiKey=${KEY}`;
 
   fetch(URL)
     .then((response) => checkStatus(response))
     .then((data) => {
-      ulRef.textContent = "";
-      pagesInfo(data, pageSize);
+      if (e.type === "submit") {
+        pagesInfo(data, pageSize);
+        loadMoreBtn.classList.remove("hide");
+      }
       renderContent(data.articles);
+      hideLoadMoreBtn(data, pageSize);
+      pageCounter += 1;
     })
     .catch((e) => console.log("error:", e));
 };
 
 formRef.addEventListener("submit", onSubmit);
+loadMoreBtn.addEventListener("click", onSubmit);
 
 const checkStatus = (res) => {
   if (!res.ok) {
